@@ -6,25 +6,25 @@ class ArtistModel {
         }
         //Returner new promise 
     list = (req, res) => {
-        return new Promise((resolve, reject) => {
-            //Kommer der noget fra API
-            const orderBy = req.query.orderBy || 'id';
-            const limit = req.query.limit ? ` LIMIT ${req.query.limit}` : '';
+            return new Promise((resolve, reject) => {
+                //Kommer der noget fra API
+                const orderBy = req.query.orderBy || 'id';
+                const limit = req.query.limit ? ` LIMIT ${req.query.limit}` : '';
 
-            //Liste over artister
-            let sql = `SELECT *
+                //Liste over artister
+                let sql = `SELECT *
              FROM artist
               ORDER BY ${orderBy} ${limit} `;
-            db.query(sql, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(result);
-                }
+                db.query(sql, (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                })
             })
-        })
-    }
-
+        }
+        //Hent liste over artister og sang
     get = (req, res) => {
         return new Promise((resolve, reject) => {
             const sql = `SELECT artist.name, song.title
