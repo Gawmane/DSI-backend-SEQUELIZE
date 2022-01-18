@@ -1,25 +1,36 @@
 import express from 'express';
-import dotenv from 'dotenv';
+import { router as UserRouter } from './Routes/user.router.js';
 import { router as SongRouter } from './Routes/song.router.js';
 import { router as ArtistRouter } from './Routes/artist.router.js';
-//import { router as SearchRouter } from './Routes/search.router.js';
-
-
+import { router as InitRouter } from './Routes/init.router.js';
+import dotenv from 'dotenv';
 
 //Kalder en environment vars
 dotenv.config();
 
-const port = process.env.PORT || 3030
+const port = process.env.PORT || 4000;
 
-const app = new express();
+const app = express();
 app.use(express.urlencoded({
     extended: true
 }));
-app.use(express.json())
 
+
+app.use((req, res, next) => {
+    res.append('Access-Control-Allow-Origin', ['*']);
+    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+})
+
+
+
+
+app.use(InitRouter);
 app.use(SongRouter);
 app.use(ArtistRouter);
-//app.use(SearchRouter);
+app.use(UserRouter);
+
 
 
 app.listen(port, () => {

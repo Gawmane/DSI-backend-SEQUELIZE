@@ -2,33 +2,45 @@ import { sequelize } from "../Config/db.config.js";
 import { Sequelize, DataTypes, Model } from "sequelize";
 
 
-class SongModel extends Model {}
+class UserModel extends Model {}
 
-SongModel.init({
+
+
+UserModel.init({
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    title: {
+    name: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: 'Untitled'
-    },
-    content: {
-        type: DataTypes.TEXT,
-        allowNull: true,
 
     },
-    artist_id: {
-        type: DataTypes.INTEGER,
+    lastname: {
+        type: DataTypes.STRING,
         allowNull: false,
+
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+
     }
 }, {
     sequelize,
-    modelName: 'song',
+    modelName: 'user',
     freezeTableName: true,
-    underscored: true
+    underscored: true,
+
+
 })
-export default SongModel;
+
+
+export default UserModel;
